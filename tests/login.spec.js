@@ -1,20 +1,27 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
 
+test.beforeEach(async ({page})=>{
+  await page.goto('http://localhost:3000/login');
+})
+
 test('has title', async ({ page }) => {
-    await page.goto('http://localhost:3000/login');
+    await expect(page.getByTestId('login-title')).toContainText("Login");
+  })
   
-    // Expect a title "to contain" a substring.
-    await expect(page).toHaveTitle(/Playwright/);
+test('validate input fields', async ({ page }) => {
+    await expect(page.getByTestId('login-email-input')).toHaveAttribute('placeholder');
+    await expect(page.getByTestId('login-pass-input')).toHaveAttribute('placeholder');
   });
-  
-  test('get started link', async ({ page }) => {
-    await page.goto('https://playwright.dev/');
-  
-    // Click the get started link.
-    await page.getByRole('link', { name: 'Get started' }).click();
-  
-    // Expects page to have a heading with the name of Installation.
-    await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
+
+test('validate login', async ({ page }) => {
+    await page.getByTestId('login-email-input').fill("email@email.com");
+    await page.getByTestId('login-pass-input').fill("password");
+    await page.getByTestId('login-button').click();
+
+    //Wait for modal.
+    await expect(page.getByTestId('login-modal')).toBeVisible();
+    await expect(page.getByTestId('login-modal-title')).toContainText('Welcome');
+    await expect(page.getByTestId('login-modal-description')).toContainText('User logged in.');
+
   });
-  
