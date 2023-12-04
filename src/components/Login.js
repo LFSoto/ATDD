@@ -1,11 +1,32 @@
 import React, { useState } from "react";
+import Popup from 'reactjs-popup';
 import { useNavigate } from "react-router-dom";
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+ 
 
 const Login = (props) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [emailError, setEmailError] = useState("")
     const [passwordError, setPasswordError] = useState("")
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
     
     const navigate = useNavigate();
         
@@ -35,7 +56,8 @@ const Login = (props) => {
                     return
                 }
         
-                // Authentication calls will be made here...       
+                // Authentication calls will be made here...     
+                
     }
 
     return <div className={"mainContainer"}>
@@ -63,6 +85,31 @@ const Login = (props) => {
             <label className="errorLabel">{passwordError}</label>
         </div>
         <br />
+        <div className={"inputContainer"}>
+            <input
+                className={"inputButton"}
+                type="button"
+                onClick={handleOpen}
+                value={"Iniciar Sesión"} 
+                data-testid="login-button"/>
+        </div>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        data-testid="login-modal"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2" data-testid="login-modal-title">
+            Welcome
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }} data-testid="login-modal-description">
+            User logged in.
+          </Typography>
+        </Box>
+      </Modal>
+
     </div>
 }
 
