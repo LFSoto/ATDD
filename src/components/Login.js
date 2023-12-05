@@ -102,10 +102,10 @@ const Login = (props) => {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2" data-testid="login-modal-title">
-            Welcome
+            Bienvenido
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }} data-testid="login-modal-description">
-            User logged in.
+            Usuario inició sesión correctamente.
           </Typography>
         </Box>
       </Modal>
