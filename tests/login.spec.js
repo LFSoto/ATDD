@@ -21,7 +21,7 @@ test('validate login', async ({ page }) => {
 
     //Wait for modal.
     await expect(page.getByTestId('login-modal')).toBeVisible();
-    await expect(page.getByTestId('login-modal-title')).toContainText('Welcome');
-    await expect(page.getByTestId('login-modal-description')).toContainText('User logged in.');
+    await expect(page.getByTestId('login-modal-title')).toContainText('Bienvenido');
+    await expect(page.getByTestId('login-modal-description')).toContainText('Usuario inició sesión correctamente.');
 
   });
